@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Azure Machine Learning HOL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+
+<h1>Using Azure Machine Learning</h1>
+
+<hr>
+
+<p><a name="Overview"></a></p>
+
+<h2>Overview</h2>
+
+<p>Machine learning, which facilitates predictive analysis from large volumes of data by employing algorithms that iteratively learn from that data, is one of the fastest growing areas of computer science. Its uses range from credit-card fraud detection and self-driving cars to optical character recognition (OCR) and online shopping recommendations. It makes us smarter by making computers smarter. And its usefulness will only increase as more and more data becomes available and our desire to perform predictive analysis from that data grows, too.</p>
+
+<p>Azure Machine Learning is a cloud-based predictive-analytics service that offers a streamlined experience for data scientists of all skill levels. It's accompanied by the Azure Machine Learning Studio (ML Studio), which is a browser-based tool that allows you to build models using simple drag-and-drop gestures. It comes with a library of time-saving experiments and features best-in-class algorithms developed and tested in the real world by Microsoft businesses such as Bing. And its built-in support for <a href="https://www.r-project.org/">R</a> and <a href="https://www.python.org/">Python</a> means you can build custom scripts  to customize your model. Once you've built and trained your model in the ML Studio, you can easily expose it as a Web service that is consumable using a variety of programming languages, or share it with the community by placing it in the <a href="https://gallery.cortanaintelligence.com/">Cortana Intelligence Gallery</a>.</p>
+
+<p>In this lab, you will use Azure Machine Learning to model automobile features and prices and generate price predictions from feature inputs. You will employ the following steps to build the experiment in the Azure Machine Learning Studio and to create, train, and score your model to predict automobile price:</p>
+
+<ol>
+<li>Create a model
+
+<ul>
+<li>Get the data</li>
+<li>Preprocess the data</li>
+<li>Define features</li>
+</ul>
+</li>
+<li>Train the model
+
+<ul>
+<li>Choose and apply a learning algorithm</li>
+</ul>
+</li>
+<li>Score and test the model
+
+<ul>
+<li>Predict new automobile prices</li>
+</ul>
+</li>
+</ol>
+
+<p><a name="Objectives"></a></p>
+
+<h3>Objectives</h3>
+
+<p>In this hands-on lab, you will learn how to:</p>
+
+<ul>
+<li>Log in to the Azure Machine Learning Studio</li>
+<li>Work with the Azure Machine Learning Studio</li>
+<li>Acquire and process data for machine-learning experiments</li>
+<li>Apply and test learning algorithms</li>
+<li>Deploy your model as a Web service so it can be accessed from code or scripts</li>
+</ul>
+
+<p><a name="Prerequisites"></a></p>
+
+<h3>Prerequisites</h3>
+
+<p>The following is required to complete this hands-on lab:</p>
+
+<ul>
+<li>A Microsoft Azure subscription - <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a>
+</li>
+</ul>
+
+<hr>
+
+<p><a name="Exercises"></a></p>
+
+<h2>Exercises</h2>
+
+<p>This hands-on lab includes the following exercises:</p>
+
+<ol>
+<li><a href="#Exercise1">Exercise 1: Log in to the Azure Machine Learning Studio</a></li>
+<li><a href="#Exercise2">Exercise 2: Load a dataset</a></li>
+<li><a href="#Exercise3">Exercise 3: Preprocess the data</a></li>
+<li><a href="#Exercise4">Exercise 4: Define the features</a></li>
+<li><a href="#Exercise5">Exercise 5: Select a learning algorithm and train the model</a></li>
+<li><a href="#Exercise6">Exercise 6: Score the model</a></li>
+<li><a href="#Exercise7">Exercise 7: Deploy as a Web service</a></li>
+<li><a href="#Exercise8">Exercise 8 (Optional): Compare two models</a></li>
+</ol>
+
+<p>Estimated time to complete this lab: <strong>60</strong> minutes.</p>
+
+<p><a name="Exercise1"></a></p>
+
+<h2>Exercise1: Log in to the Azure Machine Learning Studio</h2>
+
+<p>The first step in employing Azure Machine Learning is to log in.</p>
+
+<ol>
+<li>
+<p>In your web browser, navigate to <a href="http://studio.azureml.net">http://studio.azureml.net</a> and click the <strong>Sign In</strong> button</p>
+
+<p><a href="Images/logging-in-started.png" target="_blank"><img src="Images/logging-in-started.png" alt="Getting started with Azure ML" style="max-width:100%;"></a></p>
+
+<p><em>Getting started with Azure ML</em></p>
+</li>
+<li>
+<p>You can either use a guest account or sign in with your Microsoft account. You should do the latter because the guest account is both time-limited (8 hours) and size-limited (max data file size is 100 MB and experiments are limited to 50 or fewer modules), and it doesn't support R or Python. Therefore, click the <strong>SIGN IN</strong> button and sign in with your Microsoft account.</p>
+
+<p><a href="Images/logging-in-choose-account.png" target="_blank"><img src="Images/logging-in-choose-account.png" alt="Signing in to the Azure Machine Learning Studio" style="max-width:100%;"></a></p>
+
+<p><em>Signing in to the Azure Machine Learning Studio</em></p>
+</li>
+</ol>
+
+<p>Now that you're logged in, the next step is to import some data and begin building a model around it.</p>
+
+<p><a name="Exercise2"></a></p>
+
+<h2>Exercise 2: Load a dataset</h2>
+
+<p>In this exercise, you will create an Azure Machine Learning experiment and add a dataset to it.</p>
+
+<blockquote>
+<p>When working with the Azure Machine Learning Studio, get in the habit of saving your experiments often — for example, after each step of this lab. That way, if you encounter a problem, you will not have to replicate steps to get caught up. Also, be aware that you <strong>may lose your work if you click the browser's Back button without saving your experiment first.</strong></p>
+</blockquote>
+
+<p>Azure Machine Learning Studio comes with several sample datasets. In this lab, you will utilize the sample dataset named "Automobile price data (Raw)." This dataset includes entries for a number of individual automobiles, including make, model, technical specifications, and price.</p>
+
+<ol>
+<li>
+<p>Start a new experiment by clicking <strong>New</strong> at the bottom left followed by <strong>Blank Experiment</strong>.</p>
+
+<p><a href="Images/data-blank-experiment.png" target="_blank"><img src="Images/data-blank-experiment.png" alt="Creating a blank Experiment" style="max-width:100%;"></a></p>
+
+<p><em>Creating a blank experiment</em></p>
+</li>
+<li>
+<p>Click the default experiment name at the top of the canvas and change it to something more meaningful, such as "Automobile price prediction."</p>
+
+<p><a href="Images/data-rename-experiment.png" target="_blank"><img src="Images/data-rename-experiment.png" alt="Renaming the experiment" style="max-width:100%;"></a></p>
+
+<p><em>Renaming the experiment</em></p>
+</li>
+<li>
+<p>To the left of the experiment canvas is the modules palette. Type "automobile" in the search box at the top to find the dataset labeled "Automobile price data (Raw)."</p>
+
+<p><a href="Images/data-palette-to-search.png" target="_blank"><img src="Images/data-palette-to-search.png" alt="Finding a dataset" style="max-width:100%;"></a></p>
+
+<p><em>Finding a dataset</em></p>
+</li>
+<li>
+<p>Drag the "Automobile price data (Raw)" dataset from the modules palette and drop it onto the experiment canvas.</p>
+
+<p><a href="Images/data-dataset-on-canvas.png" target="_blank"><img src="Images/data-dataset-on-canvas.png" alt="Adding a dataset" style="max-width:100%;"></a></p>
+
+<p><em>Adding a dataset</em></p>
+</li>
+<li>
+<p>To see what this dataset looks like, click the output port (the circle with the "1" in it) at the bottom of the dataset and select <strong>Visualize</strong>.</p>
+
+<p><a href="Images/data-select-visualize-menu.png" target="_blank"><img src="Images/data-select-visualize-menu.png" alt="Visualizing the dataset" style="max-width:100%;"></a></p>
+
+<p><em>Visualizing the dataset</em></p>
+</li>
+<li>
+<p>The variables in the dataset appear as columns, with each row representing an automobile. The far-right column titled "price" is the target variable for your predictive analysis. Scroll to the right until you see this column.</p>
+
+<p><a href="Images/data-viewing-data.png" target="_blank"><img src="Images/data-viewing-data.png" alt="Viewing the raw data" style="max-width:100%;"></a></p>
+
+<p><em>Viewing the raw data</em></p>
+</li>
+<li><p>Close the visualization window by clicking the "<strong>x</strong>" in the upper-right corner.</p></li>
+</ol>
+
+<p>In this exercise, you learned how to create a new ML experiment and add a sample dataset to it. Note that you can upload custom datasets by clicking the <strong>+ NEW</strong> button in the ribbon at the bottom of the window, and then clicking <strong>DATASET</strong> followed by <strong>FROM LOCAL FILE</strong>. Next up: preparing the sample data for use.</p>
+
+<p><a name="Exercise3"></a></p>
+
+<h2>Exercise 3: Preprocess the data</h2>
+
+<p>No dataset is perfect. Most require some amount of preprocessing before they can be used to train a model. When you visualized the data, you may have noticed that some rows of automobile data were missing values. These missing values need to be cleaned up before training begins. In this example, you will remove any rows that have missing values. In addition, the "normalized-losses" column has a lot of missing values, so you'll exclude that column from the model.</p>
+
+<ol>
+<li>
+<p>At the top of the modules pallete, type "select columns" (without quotation marks) into the search box to find the Select Columns in Dataset module. Drag the module over to the experiment canvas and connect it to the output port of the "Automobile price data (Raw)" dataset by dragging an arrow downward from the output port. The Select Columns in Dataset module allows you to specify which columns of data to include or exclude in the model.</p>
+
+<blockquote>
+<p>A key concept to understand in Azure ML Studio is that of ports and connectors. In this step, you connected the output port of the raw data module to the input port of the Select Columns in Dataset module. The data flows from one module to the next through the connector. Some modules, such as the Train Model, support multiple inputs and therefore have multiple input ports. If you want to know what a port does, hover over it with the mouse and a tooltip will pop up. If you want more information, right-click on the module and select <strong>Help</strong> from the popup menu.</p>
+</blockquote>
+
+<p><a href="Images/select-columns-in-dataset.png" target="_blank"><img src="Images/select-columns-in-dataset.png" alt="Connecting the dataset to the Select Columns in Dataset module" style="max-width:100%;"></a></p>
+
+<p><em>Connecting the dataset to the Select Columns in Dataset module</em></p>
+</li>
+<li>
+<p>Select the Select Columns in Dataset module on the experiment canvas and click the <strong>Launch column selector</strong> button in the Properties pane on the right.</p>
+
+<p><a href="Images/launch-column-selector.png" target="_blank"><img src="Images/launch-column-selector.png" alt="Launching the column selector" style="max-width:100%;"></a></p>
+
+<p><em>Launching the column selector</em></p>
+</li>
+<li>
+<p>Select <strong>WITH RULES</strong> in the leftmost column if it isn't already selected, and then select <strong>ALL COLUMNS</strong> under <strong>Begin With</strong>. This tells the Select Columns module to pass through all the columns (except those you're about to exclude). In the next row, select <strong>Exclude</strong> and <strong>column names</strong>, and then click the box to the right of <strong>column names</strong>. When a list of columns appears, select <strong>normalized-losses</strong> to add that column to the text box. Now click the check mark to close the column selector.</p>
+
+<blockquote>
+<p>In some browsers, it can take up to a minute for the column names to appear. If they don't appear for you, simply type the column name (normalized-losses) into the box. The list of column names will sometimes appear when you begin typing.</p>
+</blockquote>
+
+<p><a href="Images/preprocess-select-columns-dialog.png" target="_blank"><img src="Images/preprocess-select-columns-dialog.png" alt="Selecting columns for the model" style="max-width:100%;"></a></p>
+</li>
+<li>
+<p>The Properties pane indicates that the Select Columns module will pass through all columns from the dataset except "normalized-losses." Confirm that your Select Columns module is configured to do the same.</p>
+
+<p><a href="Images/preprocess-final-project-properties.png" target="_blank"><img src="Images/preprocess-final-project-properties.png" alt="Final column selection" style="max-width:100%;"></a></p>
+
+<p><em>Final column selection</em></p>
+</li>
+<li>
+<p>You are building a real model in this lab, but it is a relatively simple one. In larger and more complex experiments containing many modules, it's easy to lose track of what each module does and why. A nice feature of Azure Machine Learning Studio is that if you double-click a module on the experiment canvas, you can annotate it with comments. Double-click the Select Columns module and type "Exclude normalized-losses" in the text box that pops up. To display the comment, click the down-arrow in the Select Columns box. If you wish to change the comment, simply right-click the module and select <strong>Edit Comment</strong> from the menu that pops up.</p>
+
+<p><a href="Images/preprocess-seeing-box-comments.png" target="_blank"><img src="Images/preprocess-seeing-box-comments.png" alt="Adding and viewing comments" style="max-width:100%;"></a></p>
+
+<p><em>Adding and viewing comments</em></p>
+</li>
+<li>
+<p>Now it's time to remove rows containing blank values. Type "clean" into the search box and drag the Clean Missing Data module to the experiment canvas and connect it to the output of the Select Columns module. In the Properties pane, select <strong>Remove entire row</strong> from the list under <strong>Cleaning mode</strong> to clean the data by removing rows that have at least one missing value.</p>
+
+<p><a href="Images/preprocess-clean-missing-properties.png" target="_blank"><img src="Images/preprocess-clean-missing-properties.png" alt="Removing rows with missing values" style="max-width:100%;"></a></p>
+
+<p><em>Removing rows with missing values</em></p>
+</li>
+<li><p>Double-click the Clean Missing Data module and enter the comment "Remove rows with missing values."</p></li>
+<li><p>Click the <strong>SAVE</strong> button at the bottom of the canvas and save the experiment.</p></li>
+<li><p>Click the <strong>RUN</strong> button at the bottom of the canvas to run the experiment.</p></li>
+<li>
+<p>When the experiment finishes running, the Select Columns and Clean Missing Data modules will be tagged with a green check mark to indicate that they executed successfully. In addition, the status in the upper-right corner will change to "Finished running".</p>
+
+<p><a href="Images/preprocess-finished-run.png" target="_blank"><img src="Images/preprocess-finished-run.png" alt="Outcome of a successful run" style="max-width:100%;"></a></p>
+
+<p><em>Outcome of a successful run</em></p>
+</li>
+<li><p>The output from the Clean Missing Data module is a dataset with the "normalized-losses" column removed and all rows with at least one missing value removed. To view the cleaned dataset, click the left output port of the Clean Missing Data module and select <strong>Visualize</strong>. Notice that the "normalized-losses" column is no longer present, and there are no missing values.</p></li>
+<li><p>Close the visualization window by clicking the "<strong>x</strong>" in the upper-right corner.</p></li>
+</ol>
+
+<p>In this exercise, you learned how to clean input to provide the best possible data to your experiments. The data is ready; now it's time to work on the model itself.</p>
+
+<p><a name="Exercise4"></a></p>
+
+<h2>Exercise 4: Define the features</h2>
+
+<p>In machine learning, <em>features</em> are individually measurable properties of the data that you're analyzing. In the "Automobile price data (Raw)" dataset, each row represents one automobile, and each column represents a feature of that automobile. Identifying features for a robust and accurate predictive model frequently requires experimentation and domain knowledge of the problem you're trying to solve. Some features are better for predicting target values than others. For example, it's likely that there is some correlation between engine size and price, because larger engines cost more. But intuition tells us that miles per gallon might not be a strong indicator of price. In addition, some features have a strong correlation with other features (for example, city-mpg versus highway-mpg), and can therefore be excluded since they add little to the model.</p>
+
+<p>It is time to build a model that uses a subset of the features in the dataset. You'll start with the following features (columns), which include the "price" feature that the model will attempt to predict:</p>
+
+<ul>
+<li>make</li>
+<li>body-style</li>
+<li>wheel-base</li>
+<li>engine-size</li>
+<li>horsepower</li>
+<li>peak-rpm</li>
+<li>highway-mpg</li>
+<li>price</li>
+</ul>
+
+<p>Later, you can always come back and refine the model by selecting different features.</p>
+
+<ol>
+<li><p>Drag another Select Columns module to the experiment canvas and connect it to the left output port of the Clean Missing Data module. Double-click the new Select Columns module and type "Select features for prediction" as the comment.</p></li>
+<li><p>Select the module you just added and click <strong>Launch column selector</strong> in the Properties pane.</p></li>
+<li>
+<p>Select <strong>WITH RULES</strong> in the leftmost column if it isn't already selected, and then select <strong>NO COLUMNS</strong> under <strong>Begin With</strong>. Then select <strong>Include</strong> and <strong>column names</strong> in the filter row. This directs the module to pass through only the columns that are specified. Now click the box to the right of <strong>column names</strong> and select the columns pictured below. Finish up by clicking the check mark in the lower-right corner.</p>
+
+<p><a href="Images/define-select-project-columns.png" target="_blank"><img src="Images/define-select-project-columns.png" alt="Selecting columns for the experiment" style="max-width:100%;"></a></p>
+
+<p><em>Selecting columns for the experiment</em></p>
+</li>
+<li>
+<p>The Properties pane will show the selected columns. Confirm that your selected-columns readout matches the one below.</p>
+
+<p><a href="Images/define-select-project-property-page.png" target="_blank"><img src="Images/define-select-project-property-page.png" alt="Columns selected for the experiment" style="max-width:100%;"></a></p>
+
+<p><em>Columns selected for the experiment</em></p>
+</li>
+<li><p>Click the <strong>SAVE</strong> button at the bottom of the canvas and save the experiment.</p></li>
+</ol>
+
+<p>You're getting close! Now comes perhaps the most important part of the process: selecting a learning algorithm to use in the experiment.</p>
+
+<p><a name="Exercise5"></a></p>
+
+<h2>Exercise 5: Select a learning algorithm and train the model</h2>
+
+<p>Now that the data is ready and the features are selected, constructing a robust predictive model requires training and testing the model. You will use part of the dataset to train the model, and another part of it to measure how adept the model is at predicting automobile prices.</p>
+
+<p>Before you can train the model, you must select a learning algorithm to use. <em>Classification</em> and <em>regression</em> are two types of supervised machine-learning algorithms. Classification is used to make a prediction from a defined set of values, such as the make of a car (for example, Honda or BMW). Regression is used to make a prediction from a continuous set of values, such as a person's age or the price of an automobile. Azure Machine Learning offers several types of classification and regression algorithms for you to choose from, as well as algorithms of other types.</p>
+
+<blockquote>
+<p>The Azure Machine Learning team has put together a "cheat sheet" to help you decide which machine-learning algorithm to choose based on the intended purpose of your model. You can download it from <a href="http://aka.ms/MLCheatSheet">http://aka.ms/MLCheatSheet</a></p>
+</blockquote>
+
+<p>The goal in this lab is to predict the price of an automobile, so you will use a regression model. In this exercise, you will train a simple linear-regression model, and in the next exercise, you will test the results.</p>
+
+<ol>
+<li>
+<p>You can use a single dataset for training and testing by splitting its output. Find the Split Data module in the modules palette and drag it over to the canvas. Then connect the output of the last Select Columns module to the Split Data module. Set <strong>Fraction of rows in the first output dataset</strong> to 0.8. This will use 80% of the data to train the model, and hold back 20% for testing. Leave <strong>Random seed</strong> set to 0. This parameter controls the seeding of the pseudo-random number generator and allows you to produce different random samples by entering different values.</p>
+
+<p><a href="Images/choose-split-percentage.png" target="_blank"><img src="Images/choose-split-percentage.png" alt="Splitting the data" style="max-width:100%;"></a></p>
+
+<p><em>Splitting the data</em></p>
+</li>
+<li><p>Click the <strong>RUN</strong> button to allow the Select Columns and Split Data modules to pass column definitions to the modules you will be adding next.</p></li>
+<li>
+<p>To specify a learning algorithm, type "linear regression" into the search box in the modules palette. Then drag the Linear Regression module onto the canvas.</p>
+
+<p><a href="Images/choose-add-linear-regression.png" target="_blank"><img src="Images/choose-add-linear-regression.png" alt="Adding the Linear Regression module" style="max-width:100%;"></a></p>
+
+<p><em>Adding the Linear Regression module</em></p>
+</li>
+<li>
+<p>Find the Train Model module and add it to the experiment. Then select the module and click <strong>Launch column selector</strong> in the Properties pane.</p>
+
+<p><a href="Images/choose-train-model-price.png" target="_blank"><img src="Images/choose-train-model-price.png" alt="Training the model on price" style="max-width:100%;"></a></p>
+
+<p><em>Training the model on price</em></p>
+</li>
+<li>
+<p>Make sure <strong>WITH RULES</strong> is selected on the left and <strong>Include</strong> and <strong>column names</strong> are selected in the drop-down lists. Then add the "price" column to the box on the right. This is the value that your model is going to predict. Finish up by clicking the check mark in the column-selector dialog.</p>
+
+<p><a href="Images/select-price.png" target="_blank"><img src="Images/select-price.png" alt="Specifying the output variable" style="max-width:100%;"></a></p>
+
+<p><em>Specifying the output variable</em></p>
+</li>
+<li>
+<p>Connect the output port of the Linear Regression module to the left input port of the Train Model module. Then connect the left output port of the Split Data module to the right input port of the Train Model module.</p>
+
+<p><a href="Images/choose-connect-lr-split-to-train.png" target="_blank"><img src="Images/choose-connect-lr-split-to-train.png" alt="Connecting the modules" style="max-width:100%;"></a></p>
+
+<p><em>Connecting the modules</em></p>
+</li>
+<li><p>Click the <strong>SAVE</strong> button and save the experiment.</p></li>
+<li><p>Click the <strong>RUN</strong> button to run the experiment. After the run finishes, you will have a trained regression model that can be used to score new samples and make predictions.</p></li>
+</ol>
+
+<p>Now comes the fun part: testing the model to see how well it's able to predict automobile prices!</p>
+
+<p><a name="Exercise6"></a></p>
+
+<h2>Exercise 6: Score the model</h2>
+
+<p>With a model that was trained on 80% of the data, you can use the remaining 20% of the data to score the model and judge how well it functions.</p>
+
+<ol>
+<li>
+<p>Add a Score Model module to the canvas. Connect the output of the Train Model module to the Score Model module's left input port. Then connect the right output port of the Split Data module to the right input port of the Score Model module. That connection represents the 20% of the data that was not used for training.</p>
+
+<p><a href="Images/predict-score-module.png" target="_blank"><img src="Images/predict-score-module.png" alt="Adding the Score Model module" style="max-width:100%;"></a></p>
+
+<p><em>Adding the Score Model module</em></p>
+</li>
+<li><p>Click the <strong>SAVE</strong> button and save the experiment.</p></li>
+<li><p>Click the <strong>RUN</strong> button to run the experiment.</p></li>
+<li>
+<p>After the run finishes, click the output port of the Score Model module and select <strong>Visualize</strong>. The output shows the known values for price from the dataset followed by the predicted values determined by the algorithm. You may have to scroll the table to the right to see the "price" and "Scored Labeled" columns.</p>
+
+<p><a href="Images/predict-scored-data.png" target="_blank"><img src="Images/predict-scored-data.png" alt="The scored data" style="max-width:100%;"></a></p>
+
+<p><em>The scored data</em></p>
+</li>
+<li><p>Close the visualization window by clicking the "<strong>x</strong>" in the upper-right corner.</p></li>
+<li>
+<p>To evaluate the quality of the results, add an Evaluate Model module to the experiment canvas. Connect the output port of the Score Model module to the left input port of the output of the Evaluate Model module. (There are two input ports because Evaluate Model can be used to compare two models.)</p>
+
+<p><a href="Images/predict-evaluate-model.png" target="_blank"><img src="Images/predict-evaluate-model.png" alt="The Evaluate Model module" style="max-width:100%;"></a></p>
+
+<p><em>The Evaluate Model module</em></p>
+</li>
+<li><p>Run the experiment again by clicking the <strong>RUN</strong> button.</p></li>
+<li>
+<p>Click the output port of the Evaluate Model and select <strong>Visualize</strong> from the menu.</p>
+
+<p><a href="Images/predict-evaluation-results.png" target="_blank"><img src="Images/predict-evaluation-results.png" alt="The evaluation results" style="max-width:100%;"></a></p>
+
+<p><em>The evaluation results</em></p>
+
+<p>Here is a quick explanation of the results:</p>
+
+<ul>
+<li>
+<strong>Mean Absolute Error</strong> (MAE): The average of absolute errors (an error is the difference between the predicted value and the actual value).</li>
+<li>
+<strong>Root Mean Squared Error</strong> (RMSE): The square root of the average of squared errors of predictions made on the test dataset.</li>
+<li>
+<strong>Relative Absolute Error</strong>: The average of absolute errors relative to the absolute difference between actual values and the average of all actual values.</li>
+<li>
+<strong>Relative Squared Error</strong>: The average of squared errors relative to the squared difference between the actual values and the average of all actual values.</li>
+<li>
+<strong>Coefficient of Determination</strong>: Also known as the <strong>R-squared value</strong>, this is a statistical metric indicating how well a model fits the data.</li>
+</ul>
+
+<p>For each of the error statistics, smaller is better. A smaller value indicates that the predictions more closely match the actual values. For <strong>Coefficient of Determination</strong>, the closer its value is to 1.0, the better the predictions. In this case, the model was able to predict the price of a car from the test data with slightly more than 90% accuracy.</p>
+</li>
+<li><p>Close the visualization window by clicking the "<strong>x</strong>" in the upper-right corner.</p></li>
+</ol>
+
+<p>Now that the model is adequately refined (90% is indicative of a reasonably strong correlation between the input data and results), you might want to be able write programs that utilize the model. That is the subject of the next exercise.</p>
+
+<p><a name="Exercise7"></a></p>
+
+<h2>Exercise 7: Deploy as a Web service</h2>
+
+<p>Once you have a trained model, you can deploy it as a Web service in order to interact with it programmatically. That way, you can write apps to pass data in and get results back.</p>
+
+<p>Before deploying as a Web service, you need to streamline your experiment for scoring. This involves creating a <em>scoring experiment</em> from your trained model, removing unnecessary modules that are needed for training but not for scoring, and adding Web-service input and output modules. Fortunately, the Azure Machine Learning Studio can do this for you.</p>
+
+<ol>
+<li><p>Even though you have already run your model, there's a bug in ML Studio whereby visualizing the data sometimes disables one of the Web-service menu items. To work around this, click the <strong>RUN</strong> button to rerun your model.</p></li>
+<li>
+<p>At the bottom of the screen, click the <strong>SET UP WEB SERVICE</strong> button and in the ensuing menu, select <strong>Predictive Web Service [Recommended]</strong>. If this option is grayed out, click the <strong>RUN</strong> button and try again.</p>
+
+<p><a href="Images/deploy-predict-button.png" target="_blank"><img src="Images/deploy-predict-button.png" alt="Creating a predictive Web service" style="max-width:100%;"></a></p>
+
+<p><em>Creating a predictive Web service</em></p>
+</li>
+<li>
+<p>The predictive experiment setup will spin for a few seconds, after which you will see a set of tabs at the top of the canvas indicating which model is your training experiment and which is the predictive experiment. When you look at the predictive experiment, you will find that the Train Model module has been replaced by a module named "Automobile price prediction [trained model]," and that new modules were added at the top and bottom for Web-service input and output.</p>
+
+<p><a href="Images/deploy-auto-predict-model.png" target="_blank"><img src="Images/deploy-auto-predict-model.png" alt="The predictive experiment" style="max-width:100%;"></a></p>
+
+<p><em>The predictive experiment</em></p>
+</li>
+<li>
+<p>To create a Web service to use for your predictions, click <strong>RUN</strong> once more. After the run completes, click the <strong>DEPLOY WEB SERVICE</strong> button to deploy your price-predicting Web service. This will take you to the dashboard for the new Web service. Now click the <strong>Test</strong> button in the middle of the screen. Also note that in the "APPS" column, you can download an Excel spreadsheet for working with your Web service.</p>
+
+<p><a href="Images/deploy-test-button.png" target="_blank"><img src="Images/deploy-test-button.png" alt="Testing your Web service" style="max-width:100%;"></a></p>
+
+<p><em>Testing your Web service</em></p>
+</li>
+<li>
+<p>The following dialog appears for entering test parameters:</p>
+
+<p><a href="Images/deploy-enter-data.png" target="_blank"><img src="Images/deploy-enter-data.png" alt="Entering data" style="max-width:100%;"></a></p>
+
+<p><em>Entering data</em></p>
+</li>
+<li>
+<p>Enter the parameter values shown below. These parameters are features of a car whose price we want our trained ML model to predict. Enter these values in the corresponding spaces in the dialog, and note that you will have to <strong>scroll the dialog</strong> to see all of the input fields. If you don't fill in all of the fields, you'll receive an error message when you submit the data to the Web service.</p>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>symboling</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>normalized-losses</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>make</td>
+            <td>audi</td>
+        </tr>
+        <tr>
+            <td>fuel-type</td>
+            <td>gas</td>
+        </tr>
+        <tr>
+            <td>aspiration</td>
+            <td>turbo</td>
+        </tr>
+        <tr>
+            <td>num-of-doors</td>
+            <td>two</td>
+        </tr>
+        <tr>
+            <td>body-style</td>
+            <td>hatchback</td>
+        </tr>
+        <tr>
+            <td>drive-wheels</td>
+            <td>4wd</td>
+        </tr>
+        <tr>
+            <td>engine-location</td>
+            <td>front</td>
+        </tr>
+        <tr>
+            <td>wheel-base</td>
+            <td>99.5</td>
+        </tr>
+        <tr>
+            <td>length</td>
+            <td>178.2</td>
+        </tr>
+        <tr>
+            <td>width</td>
+            <td>67.9</td>
+        </tr>
+        <tr>
+            <td>height</td>
+            <td>52</td>
+        </tr>
+        <tr>
+            <td>curb-weight</td>
+            <td>3053</td>
+        </tr>
+        <tr>
+            <td>engine-type</td>
+            <td>ohc</td>
+        </tr>
+        <tr>
+            <td>num-of-cylinders</td>
+            <td>five</td>
+        </tr>
+        <tr>
+            <td>engine-size</td>
+            <td>131</td>
+        </tr>
+        <tr>
+            <td>fuel-system</td>
+            <td>mpfi</td>
+        </tr>
+        <tr>
+            <td>bore</td>
+            <td>3.13</td>
+        </tr>
+        <tr>
+            <td>stroke</td>
+            <td>3.4</td>
+        </tr>
+        <tr>
+            <td>compression-ratio</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>horsepower</td>
+            <td>160</td>
+        </tr>
+        <tr>
+            <td>peak-rpm</td>
+            <td>5500</td>
+        </tr>
+        <tr>
+            <td>city-mpg</td>
+            <td>16</td>
+        </tr>
+        <tr>
+            <td>highway-mpg</td>
+            <td>22</td>
+        </tr>
+        <tr>
+            <td>price</td>
+            <td>0</td>
+        </tr>
+    </tbody>
+</table>
+</li>
+<li><p>Click the check mark to pass the data to your Web service.</p></li>
+<li>
+<p>After a short pause, a report will appear at the bottom of the screen. Click the <strong>DETAILS</strong> button to see the full results. The final number in the "Scored Labels" column is the projected price.</p>
+
+<p><a href="Images/deploy-projected-price.png" target="_blank"><img src="Images/deploy-projected-price.png" alt="Projected price" style="max-width:100%;"></a></p>
+
+<p><em>Projected price</em></p>
+</li>
+</ol>
+
+<p>A common question regarding hosting and using Azure ML web services is: how much does it cost? You can find the current pricing information in the <a href="https://azure.microsoft.com/en-us/pricing/details/machine-learning/">Machine Learning Pricing</a> page.</p>
+
+<p><a name="Exercise8"></a></p>
+
+<h2>Exercise 8 (Optional): Compare two models</h2>
+
+<p>When you build a predictive model, it is often useful to try different algorithms and compare the results to see which algorithm delivers the best results. The Evaluate Model module is very effective in comparing the metrics between two different algorithms.</p>
+
+<ol>
+<li>
+<p>If time permits and you're so inclined, compare the results of the linear-regression model to a model that uses a different algorithm — for example, Boosted Decision Tree regression. Which model performs better?</p>
+
+<p><a href="Images/compare-ml-models.png" target="_blank"><img src="Images/compare-ml-models.png" alt="Comparing two models" style="max-width:100%;"></a></p>
+
+<p><em>Comparing two models</em></p>
+</li>
+</ol>
+
+<h3>Summary</h3>
+
+<p>In this hands-on lab, you learned how to:</p>
+
+<ul>
+<li>Log in to the Azure Machine Learning Studio</li>
+<li>Import a sample dataset and prepare it for analysis</li>
+<li>Define the features of a model and select a learning algorithm</li>
+<li>Train and score the model</li>
+<li>Deploy the model as a Web service</li>
+</ul>
+
+<p>There's much more than you can do with Azure Machine Learning, but this is a start. Feel free to experiment with it on your own and explore the exciting world of predictive analysis with a tool that is not only productive, but fun!</p>
+
+<hr>
+
+<p>Copyright 2016 Microsoft Corporation. All rights reserved. Except where otherwise noted, these materials are licensed under the terms of the Apache License, Version 2.0. You may use it according to the license as is most appropriate for your project on a case-by-case basis. The terms of this license can be found in <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
